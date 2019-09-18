@@ -46,7 +46,8 @@ getPrice().then(function(res){
             price= Math.round(price * 1000) / 1000;
             twitterClient.post('statuses/update', {status: 'Price : $'+price+
             '\r\n\n\tMarket cap : $'+mcap +'M' +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
-            +'\r\n\n\tFees per tx : $0.00'})
+            +'\r\n\n\tFees per tx : $0.00'
+            +'\r\n\n\t$NANO'})
             .then(function (tweet) {
                  console.log(tweet);
                 })
