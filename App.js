@@ -1,11 +1,14 @@
 var Twitter = require('twitter');
-var fetch = require('node-fetch')
+var fetch = require('node-fetch');
+require('dotenv').config()
+let secureEnv = require('secure-env');
+global.env = secureEnv({secret:'nanoFastAndFeeless'});
 
 var twitterClient = new Twitter({
-    consumer_key: '6tz0DjSavjiXv9rTJUo77HpUj',
-    consumer_secret: 'OoyiyxGkuqAwPepmPXa8KPyJJDNdQJjT5zm3AoOeX2fcYWpjMb',
-    access_token_key: '1154085717628207104-E4qiIi2c1Y0RD625wSHSx4EPEev9zZ',
-    access_token_secret: 'tjezHpo7YE71DwzxLd9hf1rT4HBMYwunvfAxYReOGrwGL'
+    consumer_key: global.env.consumer_key,
+    consumer_secret: global.env.consumer_secret,
+    access_token_key: global.env.access_token_key,
+    access_token_secret: global.env.access_token_secret
   });
  
   async function getPrice() {
