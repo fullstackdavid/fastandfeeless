@@ -1,6 +1,7 @@
 var Twitter = require('twitter');
 var fetch = require('node-fetch');
-require('dotenv').config()
+//for process.env
+// require('dotenv').config()
 let secureEnv = require('secure-env');
 global.env = secureEnv({secret:'nanoFastAndFeeless'});
 
