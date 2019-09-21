@@ -11,6 +11,7 @@ var twitterClient = new Twitter({
     access_token_key: global.env.access_token_key,
     access_token_secret: global.env.access_token_secret
   });
+
  
   async function getPrice() {
     let response = await fetch("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=4c187d62-0c7f-4f1f-8c60-b5dc07f72bd7&symbol=NANO")
