@@ -102,7 +102,7 @@ getNANOfromCMC().then(function(res){
                           totalDevBalanceUSD =numberWithCommas(totalDevBalanceUSD)
                           totalDevBalanceNano = numberWithCommas(totalDevBalanceNano)
 
-                        finalTweet = 'Developer fund balance ( combined ): '
+                        finalTweet = 'Developer Fund Balance ( Combined ) : '
                         +'\r\n\n\t'+totalDevBalanceNano+" NANO" 
                         +'\r\n\n\t'+totalDevBalanceUSD+" USD" 
                         +'\r\n\n\t$NANO';
