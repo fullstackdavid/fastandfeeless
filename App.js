@@ -33,9 +33,6 @@ getNANOfromCMC().then(function(res){
             price= Math.round(price * 1000) / 1000;
             volume_24h= volume_24h / 1000000;
             volume_24h= Math.round(volume_24h * 1000) / 1000;
-            console.log(result.quote.USD.percent_change_7d);
-            console.log(volume_24h);
-            console.log(hrchange);
             if(hrchange>=0){
                 price_trend = '📈';
             } else {
@@ -60,14 +57,14 @@ getNANOfromCMC().then(function(res){
                 finalTweet += ' price has decreased by ' +hrchange+ '% in the last one hour!'
             } 
 
-            console.log(finalTweet);
-            // twitterClient.post('statuses/update', {status: finalTweet})
-            // .then(function (tweet) {
-            //      console.log(tweet);
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error)
-            //         throw error;
-            //     });
+            // console.log(finalTweet);
+            twitterClient.post('statuses/update', {status: finalTweet})
+            .then(function (tweet) {
+                 console.log(tweet);
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    throw error;
+                });
 
         })
