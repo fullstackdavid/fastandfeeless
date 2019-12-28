@@ -39,24 +39,23 @@ getNANOfromCMC().then(function(res){
                 price_trend = '📉';
             }
             finalTweet = 'Price : $'+price
-            +'\r\n\n\tPrice change (last 1h) : '+hrchange+'%' +' '+ price_trend
+            +'\r\n\n\tChange (last 1h) : '+hrchange+'%' +' '+ price_trend
             +'\r\n\n\tMarket cap : $'+mcap +'M' 
-            +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
             +'\r\n\n\tVolume (last 24h) : $'+volume_24h +'M' 
+            +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
             +'\r\n\n\t$NANO';
-            if(hrchange >10){
-                if(hrchange > 100 ){
-                    finalTweet = '$NANO is what Bitcoin was supposed to be.'
-                } else if(hrchange > 50){
-                    finalTweet = '$NANO is superior.'
-                } else{
-                finalTweet += ' price has increased by ' +hrchange+ '% in the last one hour!'
-                }
-            } 
-            if(hrchange < -10){
-                finalTweet += ' price has decreased by ' +hrchange+ '% in the last one hour!'
-            } 
-
+            // if(hrchange >10){
+            //     if(hrchange > 100 ){
+            //         finalTweet = '$NANO is what Bitcoin was supposed to be.'
+            //     } else if(hrchange > 50){
+            //         finalTweet = '$NANO is superior.'
+            //     } else{
+            //     finalTweet += ' price has increased by ' +hrchange+ '% in the last one hour!'
+            //     }
+            // } 
+            // if(hrchange < -10){
+            //     finalTweet += ' price has decreased by ' +hrchange+ '% in the last one hour!'
+            // } 
             // console.log(finalTweet);
             twitterClient.post('statuses/update', {status: finalTweet})
             .then(function (tweet) {
