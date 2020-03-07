@@ -67,9 +67,8 @@ rp(requestOptions).then(response => {
         satPrice= Math.round(satPrice * 100000000);
         // console.log(satPrice);
         finalTweet = 
-        'Price : $'+price 
-        +'\r\n\n\tPrice in BTC : '+satPrice +' sats' 
-        +'\r\n\n\tChange in USD (last 1h) : '+hrchange+'%' +' '+ price_trend
+        'Price : $'+price +' / '+satPrice +' sats' 
+        +'\r\n\n\tUSD Change (last 1h) : '+hrchange+'%' +' '+ price_trend
         +'\r\n\n\tMarket cap : $'+mcap +'M' 
         +'\r\n\n\tVolume (last 24h) : $'+volume_24h +'M' 
         +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
