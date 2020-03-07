@@ -18,74 +18,52 @@ async function getNANOfromCMC() {
     return JSON.stringify(data["data"].NANO, null, "\t");
 }
 
-/* Example in Node.js ES6 using request-promise */
-
-const rp = require('request-promise');
-const requestOptions = {
-  method: 'GET',
-  uri: 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion',
-  qs: {
-    'id': '1567',
-    'amount': '1',
-    'convert': 'BTC'
-  },
-  headers: {
-    'X-CMC_PRO_API_KEY': '4c187d62-0c7f-4f1f-8c60-b5dc07f72bd7'
-  },
-  json: true,
-  gzip: true
-};
-
-
-
 var price, mcap , cmcrank, hrchange, volume_24h, price_trend;
 
-rp(requestOptions).then(response => {
-    // console.log('API call response:', response.data.quote.BTC.price);
-    return response.data.quote.BTC.price;
-  }).then( satPrice=>{
+getNANOfromCMC().then(function(res){
+            var result = JSON.parse(res);
+            cmcrank = result.cmc_rank;
+            mcap = result.quote.USD.market_cap;
+            price = result.quote.USD.price;
+            volume_24h = result.quote.USD.volume_24h;
+            hrchange = result.quote.USD.percent_change_1h;
+            hrchange = Math.round(hrchange * 100) / 100;
+            mcap= mcap / 1000000;
+            mcap= Math.round(mcap * 100) / 100;
+            price= Math.round(price * 1000) / 1000;
+            volume_24h= volume_24h / 1000000;
+            volume_24h= Math.round(volume_24h * 1000) / 1000;
+            if(hrchange>=0){
+                price_trend = '📈';
+            } else {
+                price_trend = '📉';
+            }
+            finalTweet = 'Price : $'+price
+            +'\r\n\n\tChange (last 1h) : '+hrchange+'%' +' '+ price_trend
+            +'\r\n\n\tMarket cap : $'+mcap +'M' 
+            +'\r\n\n\tVolume (last 24h) : $'+volume_24h +'M' 
+            +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
+            +'\r\n\n\t$NANO';
+            // if(hrchange >10){
+            //     if(hrchange > 100 ){
+            //         finalTweet = '$NANO is what Bitcoin was supposed to be.'
+            //     } else if(hrchange > 50){
+            //         finalTweet = '$NANO is superior.'
+            //     } else{
+            //     finalTweet += ' price has increased by ' +hrchange+ '% in the last one hour!'
+            //     }
+            // } 
+            // if(hrchange < -10){
+            //     finalTweet += ' price has decreased by ' +hrchange+ '% in the last one hour!'
+            // } 
+            // console.log(finalTweet);
+            twitterClient.post('statuses/update', {status: finalTweet})
+            .then(function (tweet) {
+                 console.log(tweet);
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    throw error;
+                });
 
-    getNANOfromCMC().then(function(res){
-        var result = JSON.parse(res);
-        cmcrank = result.cmc_rank;
-        mcap = result.quote.USD.market_cap;
-        price = result.quote.USD.price;
-        volume_24h = result.quote.USD.volume_24h;0
-        hrchange = result.quote.USD.percent_change_1h;
-        hrchange = Math.round(hrchange * 100) / 100;
-        mcap= mcap / 1000000;
-        mcap= Math.round(mcap * 100) / 100;
-        price= Math.round(price * 1000) / 1000;
-        volume_24h= volume_24h / 1000000;
-        volume_24h= Math.round(volume_24h * 1000) / 1000;
-        if(hrchange>=0){
-            price_trend = '📈';
-        } else {
-            price_trend = '📉';
-        }
-
-        satPrice= Math.round(satPrice * 100000000);
-        // console.log(satPrice);
-        finalTweet = 
-        'Price : $'+price +' / '+satPrice +' sats' 
-        +'\r\n\n\tUSD Change (last 1h) : '+hrchange+'%' +' '+ price_trend
-        +'\r\n\n\tMarket cap : $'+mcap +'M' 
-        +'\r\n\n\tVolume (last 24h) : $'+volume_24h +'M' 
-        +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
-        +'\r\n\n\t$NANO';
-        console.log(finalTweet);
-        twitterClient.post('statuses/update', {status: finalTweet})
-        .then(function (tweet) {
-             console.log(tweet);
-            })
-            .catch(function (error) {
-                console.log(error)
-                throw error;
-            });
-
-    })
-
-
-  })
-  
-  
+        })
