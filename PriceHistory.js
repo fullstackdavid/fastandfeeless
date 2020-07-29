@@ -32,10 +32,10 @@ getNanoPriceFromPast(6).then(function(res6){
                     today = res0
 
                     finalTweet = '$NANO Historic Prices: '
-                    +'\r\n\n\tSix months ago : $'+sixmonthsago
+                    +'\r\n\n\tSix months ago   : $'+sixmonthsago
                     +'\r\n\n\tThree months ago : $'+threemonthsago
-                    +'\r\n\n\tOne month ago : $'+onemonthago 
-                    +'\r\n\n\tToday : $'+today
+                    +'\r\n\n\tOne month ago    : $'+onemonthago 
+                    +'\r\n\n\tNow              : $'+today
                    
                 
                     twitterClient.post('statuses/update', {status: finalTweet})
