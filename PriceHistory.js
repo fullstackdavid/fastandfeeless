@@ -22,8 +22,6 @@ async function getNanoPriceFromPast(months) {
 
 var sixmonthsago, threemonthsago , onemonthago, today;
 
-console.log( getDateFromPast(6))
-
 getNanoPriceFromPast(6).then(function(res6){
         sixmonthsago = res6;
         getNanoPriceFromPast(3).then(function(res3){
