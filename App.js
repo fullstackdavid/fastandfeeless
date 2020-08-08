@@ -28,8 +28,7 @@ getNANOfromCMC().then(function(res){
             volume_24h = result.quote.USD.volume_24h;
             hrchange = result.quote.USD.percent_change_1h;
             hrchange = Math.round(hrchange * 100) / 100;
-            mcap= mcap / 1000000;
-            mcap= Math.round(mcap * 100) / 100;
+            mcap = roundOffMcap(mcap)
             price= Math.round(price * 1000) / 1000;
             volume_24h= volume_24h / 1000000;
             volume_24h= Math.round(volume_24h * 1000) / 1000;
@@ -40,22 +39,10 @@ getNANOfromCMC().then(function(res){
             }
             finalTweet = 'Price : $'+price
             +'\r\n\n\tChange (last 1h) : '+hrchange+'%' +' '+ price_trend
-            +'\r\n\n\tMarket cap : $'+mcap +'M' 
+            +'\r\n\n\tMarket cap : $'+mcap  
             +'\r\n\n\tVolume (last 24h) : $'+volume_24h +'M' 
             +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
             +'\r\n\n\t$NANO';
-            // if(hrchange >10){
-            //     if(hrchange > 100 ){
-            //         finalTweet = '$NANO is what Bitcoin was supposed to be.'
-            //     } else if(hrchange > 50){
-            //         finalTweet = '$NANO is superior.'
-            //     } else{
-            //     finalTweet += ' price has increased by ' +hrchange+ '% in the last one hour!'
-            //     }
-            // } 
-            // if(hrchange < -10){
-            //     finalTweet += ' price has decreased by ' +hrchange+ '% in the last one hour!'
-            // } 
             // console.log(finalTweet);
             twitterClient.post('statuses/update', {status: finalTweet})
             .then(function (tweet) {
@@ -67,3 +54,9 @@ getNANOfromCMC().then(function(res){
                 });
 
         })
+
+function roundOffMcap(mcap) {
+    if (mcap < 1000000000) mcap = mcap = Number(mcap/1000000).toFixed(3)+ "M";
+            else if (mcap >= 1000000000) mcap = Number(mcap/1000000000).toFixed(3) + "B"; 
+            return mcap;
+}
