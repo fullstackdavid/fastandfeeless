@@ -20,6 +20,12 @@ async function getNanoPriceFromPast(months) {
     return data[0].ask_price
 }
 
+async function getNANOfromCMC() {
+    let response = await fetch("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=4c187d62-0c7f-4f1f-8c60-b5dc07f72bd7&symbol=NANO")
+    let data = await response.json()
+    return JSON.stringify(data["data"].NANO, null, "\t");
+}
+
 var sixmonthsago, threemonthsago , onemonthago, today;
 
 getNanoPriceFromPast(6).then(function(res6){
@@ -28,8 +34,10 @@ getNanoPriceFromPast(6).then(function(res6){
             threemonthsago = res3;
             getNanoPriceFromPast(1).then(function(res1){
                 onemonthago = res1
-                getNanoPriceFromPast(0).then(function(res0){
-                    today = res0
+                getNANOfromCMC().then(function(res0){
+                    var result = JSON.parse(res0);
+                    today = result.quote.USD.price;
+                    today= Math.round(today * 1000) / 1000;
 
                     finalTweet = '$NANO Historic Prices: '
                     +'\r\n\n\tSix months ago   : $'+sixmonthsago
@@ -37,7 +45,7 @@ getNanoPriceFromPast(6).then(function(res6){
                     +'\r\n\n\tOne month ago    : $'+onemonthago 
                     +'\r\n\n\tNow              : $'+today
                    
-                
+                // console.log(finalTweet)
                     twitterClient.post('statuses/update', {status: finalTweet})
             .then(function (tweet) {
                  console.log(tweet);
@@ -46,11 +54,6 @@ getNanoPriceFromPast(6).then(function(res6){
                     console.log(error)
                     throw error;
                 });
-            // console.log(finalTweet)
-            // console.log(sixmonthsago)
-            // console.log(threemonthsago)
-            // console.log(onemonthago)
-            // console.log(today)
         })    
         })
         })
