@@ -20,16 +20,16 @@ async function getPricefromCMC(coin) {
   return data
 }
 
-var nanoPrice, nanoMcap, dgbMcap, ltcMcap, bchMcap, btcMcap;
+var nanoPrice, nanoMcap, iotaMcap, ltcMcap, bchMcap, btcMcap;
 const nanoSupply =133248297;
 var mcapString;
 
 getPricefromCMC("NANO").then(function (res) {
   var result = JSON.parse(JSON.stringify(res["data"].NANO, null, "\t"));
   nanoPrice = Math.round(result.quote.USD.price * 1000) / 1000;
-  getPricefromCMC("DGB").then(function (res2) {
-    var result = JSON.parse(JSON.stringify(res2["data"].DGB, null, "\t"));
-    dgbMcap = roundOffMcap(result.quote.USD.market_cap);
+  getPricefromCMC("MIOTA").then(function (res2) {
+    var result = JSON.parse(JSON.stringify(res2["data"].MIOTA, null, "\t"));
+    iotaMcap = roundOffMcap(result.quote.USD.market_cap);
     getPricefromCMC("LTC").then(function (res3) {
         var result = JSON.parse(JSON.stringify(res3["data"].LTC, null, "\t"));
         ltcMcap = roundOffMcap(result.quote.USD.market_cap);
@@ -42,12 +42,12 @@ getPricefromCMC("NANO").then(function (res) {
   finalTweet =
     "Current Price of $NANO : $" + nanoPrice +
     "\r\n\n\tIf $NANO had:" +
-    "\r\n\n\t  - $DGB's Market cap, 1 NANO = $" + dgbMcap +
-    "\r\n\n\t  - $LTC's Market cap, 1 NANO = $" + ltcMcap +
+    "\r\n\n\t  - $IOTA's Market cap, 1 NANO = $" + iotaMcap +
     "\r\n\n\t  - $BCH's Market cap, 1 NANO = $" + bchMcap +
+    "\r\n\n\t  - $LTC's Market cap, 1 NANO = $" + ltcMcap +
     "\r\n\n\t  - $BTC's Market cap, 1 NANO = $" + btcMcap 
     ;
-//   console.log(finalTweet);
+  // console.log(finalTweet);
     twitterClient
       .post("statuses/update", { status: finalTweet })
       .then(function (tweet) {
