@@ -28,10 +28,9 @@ getNANOfromCMC().then(function(res){
             volume_24h = result.quote.USD.volume_24h;
             hrchange = result.quote.USD.percent_change_1h;
             hrchange = Math.round(hrchange * 100) / 100;
-            mcap = roundOffMcap(mcap)
+            mcap = roundOff(mcap)
             price= Math.round(price * 1000) / 1000;
-            volume_24h= volume_24h / 1000000;
-            volume_24h= Math.round(volume_24h * 1000) / 1000;
+            volume_24h=roundOff(volume_24h);
             if(hrchange>=0){
                 price_trend = '📈';
             } else {
@@ -40,7 +39,7 @@ getNANOfromCMC().then(function(res){
             finalTweet = 'Price : $'+price
             +'\r\n\n\tChange (last 1h) : '+hrchange+'%' +' '+ price_trend
             +'\r\n\n\tMarket cap : $'+mcap  
-            +'\r\n\n\tVolume (last 24h) : $'+volume_24h +'M' 
+            +'\r\n\n\tVolume (last 24h) : $'+volume_24h
             +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
             +'\r\n\n\t$NANO';
             // console.log(finalTweet);
@@ -55,8 +54,8 @@ getNANOfromCMC().then(function(res){
 
         })
 
-function roundOffMcap(mcap) {
-    if (mcap < 1000000000) mcap = mcap = Number(mcap/1000000).toFixed(3)+ "M";
-            else if (mcap >= 1000000000) mcap = Number(mcap/1000000000).toFixed(3) + "B"; 
-            return mcap;
+function roundOff(value) {
+    if (value < 1000000000) value = value = Number(value/1000000).toFixed(3)+ "M";
+            else if (value >= 1000000000) value = Number(value/1000000000).toFixed(3) + "B"; 
+            return value;
 }
