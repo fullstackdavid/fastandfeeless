@@ -40,8 +40,8 @@ getPricefromCMC("NANO").then(function (res) {
                 var result = JSON.parse(JSON.stringify(res5["data"].BTC, null, "\t"));
                 btcMcap = roundOffMcap( result.quote.USD.market_cap);
   finalTweet =
-    "Current Price of $NANO : $" + nanoPrice +
-    "\r\n\n\tIf $NANO had:" +
+    "Current Price of $XNO : $" + nanoPrice +
+    "\r\n\n\tIf $XNO had:" +
     "\r\n\n\t  - $IOTA's Market cap, 1 NANO = $" + iotaMcap +
     "\r\n\n\t  - $BCH's Market cap, 1 NANO = $" + bchMcap +
     "\r\n\n\t  - $LTC's Market cap, 1 NANO = $" + ltcMcap +

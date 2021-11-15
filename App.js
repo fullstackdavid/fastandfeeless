@@ -41,7 +41,7 @@ getNANOfromCMC().then(function(res){
             +'\r\n\n\tMarket cap : $'+mcap  
             +'\r\n\n\tVolume (last 24h) : $'+volume_24h
             +'\r\n\n\tCoinmarketcap rank : '+cmcrank 
-            +'\r\n\n\t$NANO';
+            +'\r\n\n\t$XNO';
             // console.log(finalTweet);
             twitterClient.post('statuses/update', {status: finalTweet})
             .then(function (tweet) {
