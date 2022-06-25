@@ -10,7 +10,7 @@
     "dateformat": "^3.0.3",
     "dotenv": "^8.1.0",
     "jsdom": "^15.2.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "secure-env": "^1.0.0",
     "twitter": "^1.7.1"
   },
